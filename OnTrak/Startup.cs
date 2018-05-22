@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using OnTrak.Models;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
+using OnTrak.Models.Repository.BodyData;
+using OnTrak.Models.Repository.EFRepository;
 
 namespace OnTrak
 {
@@ -27,6 +29,7 @@ namespace OnTrak
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
             services.AddTransient<IBodyAreaRepository, EFBodyAreaRepository>();
+            services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
             services.AddMvc();
         }
 
@@ -36,7 +39,14 @@ namespace OnTrak
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
-            app.UseMvc(routes => { });
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=BodyArea}/{action=Index}/{id?}");
+            });
+            SeedData.EnsurePopulated(app);
         }
+        
     }
 }

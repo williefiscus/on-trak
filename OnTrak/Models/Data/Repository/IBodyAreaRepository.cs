@@ -1,4 +1,4 @@
-﻿using OnTrak.Models.Entities.Body;
+﻿using OnTrak.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +9,7 @@ namespace OnTrak.Models.Data.Repository
     public interface IBodyAreaRepository
     {
         IQueryable<BodyArea> BodyAreas { get; }
+        BodyArea getBodyAreaById(int? index);
+        void SaveBodyArea(BodyArea bodyArea);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnTrak.Models.Entities.Body;
+using OnTrak.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +12,6 @@ namespace OnTrak.Models
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
         public DbSet<BodyArea> BodyAreas { get; set; }
+        public DbSet<BodyPart> BodyParts { get; set; }
     }
 }

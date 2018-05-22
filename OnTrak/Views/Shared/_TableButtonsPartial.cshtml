@@ -1,0 +1,38 @@
+﻿@model OnTrak.Models.UIModel.SmallButtonModel
+@using OnTrak.Models.UIModel;
+
+<td style="width:120px;">
+    <div class="btn-group" role="group">
+        @Html.Partial("_SmallButtonPartial", new SmallButtonModel
+        {
+            Action = "Edit",
+            ButtonType = "btn-primary",
+            Glyph = "pencil",
+            Text = "Edit",
+            Id = Model.Id,
+            BodyAreaId = Model.BodyAreaId,
+            BodyPartId = Model.BodyPartId,
+
+        })
+        @Html.Partial("_SmallButtonPartial", new SmallButtonModel
+        {
+            Action = "View",
+            ButtonType = "btn-primary",
+            Glyph = "pencil",
+            Text = "View",
+            Id = Model.Id,
+            BodyAreaId = Model.BodyAreaId,
+            BodyPartId = Model.BodyPartId,
+        })
+        @Html.Partial("_SmallButtonPartial", new SmallButtonModel
+        {
+            Action = "Delete",
+            ButtonType = "btn-danger",
+            Glyph = "pencil",
+            Text = "Delete",
+            Id = Model.Id,
+            BodyAreaId = Model.BodyAreaId,
+            BodyPartId = Model.BodyPartId,
+        })
+    </div>
+</td>

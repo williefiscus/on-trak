@@ -20,7 +20,7 @@ namespace OnTrak.Migrations
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("OnTrak.Models.Entities.Body.BodyArea", b =>
+            modelBuilder.Entity("OnTrak.Models.Entities.BodyArea", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
@@ -36,6 +36,26 @@ namespace OnTrak.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BodyAreas");
+                });
+
+            modelBuilder.Entity("OnTrak.Models.Entities.BodyPart", b =>
+                {
+                    b.Property<int?>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("BodyAreaId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int?>("NumberOfMuscles");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BodyParts");
                 });
 #pragma warning restore 612, 618
         }
