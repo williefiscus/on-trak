@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
 using OnTrak.Models.Repository.BodyData;
+using OnTrak.Models.ViewModel;
 using OnTrak.Models.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -22,23 +23,23 @@ namespace OnTrak.Controllers
             bodyPartRepository = bPartRepo;
         }
 
-        public ViewResult Index() => View(bodyAreaRepository.BodyAreas);
-        public ViewResult Edit(int? id) {
+        public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().createListBAreaVM(bodyPartRepository));
+        public ViewResult Edit(int? Id) {
 
-            if (id == null || id <= 0)
-            {
+            //if (id == null || id <= 0)
+            //{
                
-            }
-            BodyArea bodArea = bodyAreaRepository.getBodyAreaById(id);
-            BodyAreaViewModel bAreaModel = new BodyAreaViewModel {
-                Name = bodArea.Name,
-                Id = bodArea.Id,
-                BodyParts = bodyPartRepository.BodyParts.ToList(),
-                NumberOfParts = bodArea.NumberOfParts,
-                Description = bodArea.Description,
-                Image = bodArea.Image
-            };
-            return View(bAreaModel);
+            //}
+            //BodyArea bodArea = bodyAreaRepository.getBodyAreaById(id);
+            //BodyAreaViewModel bAreaModel = new BodyAreaViewModel {
+            //    Name = bodArea.Name,
+            //    Id = bodArea.Id,
+            //    BodyParts = bodyPartRepository.BodyParts.ToList(),
+            //    NumberOfParts = bodArea.NumberOfParts,
+            //    Description = bodArea.Description,
+            //    Image = bodArea.Image
+            //};
+            return View(bodyAreaRepository.createBAreaViewModel(bodyPartRepository, Id));
         }
 
         [HttpPost]
@@ -52,7 +53,6 @@ namespace OnTrak.Controllers
                 Name = bodyAreaModel.Name,
                 Description = bodyAreaModel.Description,
                 NumberOfParts = bodyAreaModel.NumberOfParts,
-                Image = bodyAreaModel.Image
             };
             if (file != null)
             {
@@ -61,6 +61,10 @@ namespace OnTrak.Controllers
                     await file.CopyToAsync(memoryStream);
                     bArea.Image = memoryStream.ToArray();
                 }
+            }
+            else
+            {
+                bArea.Image = bodyAreaRepository.getBodyAreaById(bodyAreaModel.Id).Image;
             }
 
 
@@ -72,6 +76,27 @@ namespace OnTrak.Controllers
             }
             else
                 return View(bodyAreaModel);
+        }
+
+        public ActionResult RetrieveImage(int Id)
+        {
+
+            byte[] cover = GetImageFromDataBase(Id);
+            if (cover != null)
+            {
+                return File(cover, "image/jpg");
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public byte[] GetImageFromDataBase(int Id)
+        {
+            var photo = bodyAreaRepository.getBodyAreaById(Id).Image;
+            byte[] cover = photo;
+            return cover;
         }
     }
 }

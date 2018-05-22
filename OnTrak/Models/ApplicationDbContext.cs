@@ -11,6 +11,9 @@ namespace OnTrak.Models
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
+
+        public ApplicationDbContext() { }
+
         public DbSet<BodyArea> BodyAreas { get; set; }
         public DbSet<BodyPart> BodyParts { get; set; }
     }

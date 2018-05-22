@@ -1,13 +1,21 @@
-﻿@model IEnumerable<BodyArea>
-@using OnTrak.Models.Entities
+﻿@model IEnumerable<BodyAreaViewModel>
+@using OnTrak.Models.ViewModels
 @using OnTrak.Models.UIModel
 
 @foreach (var bodyArea in Model)
 {
-    <div class="card card-group m-1 p-1">
-        <h3>
-            @bodyArea.Name
-            @Html.Partial("_TableButtonsPartial", new SmallButtonModel { Id = bodyArea.Id })
-        </h3>
-    </div>
+<div class="card card-group m-1 p-1">
+    <h3>
+        @bodyArea.Name
+    </h3>
+    <div><img class="img-thumbnail" src="/BodyArea/RetrieveImage/@bodyArea.Id" alt="" /></div>
+    <div>@bodyArea.Description</div>
+    @if (bodyArea.BodyParts == null)
+    {<div>The are currently no parts for this category</div>}
+    else {
+
+        <div>List of parts</div>
+     }
+    @Html.Partial("_TableButtonsPartial", new SmallButtonModel { Id = bodyArea.Id })
+</div>
 }
