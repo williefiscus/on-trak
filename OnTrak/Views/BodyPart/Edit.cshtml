@@ -33,7 +33,7 @@
                     @Html.LabelFor(model => model.BodyAreas, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.BodyAreaId,
-                        Model.BodyAreas.ToSelectListItem(Model.BodyAreaId),
+                       Model.BodyAreas.ToSelectListItem(Model.BodyAreaId),
                        new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.BodyAreaId, "", new { @class = "text-danger" })
                     </div>

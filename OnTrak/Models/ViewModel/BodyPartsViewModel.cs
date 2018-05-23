@@ -9,7 +9,7 @@ namespace OnTrak.Models.ViewModels
 {
     public class BodyPartsViewModel
     {
-        public int Id { get; set; }
+        public int BodyPartId { get; set; }
         public int BodyAreaId { get; set; }
         public int NumberOfMuscles { get; set; }
         public string Name { get; set; }

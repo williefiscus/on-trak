@@ -1,6 +1,6 @@
 ﻿@model OnTrak.Models.UIModel.SmallButtonModel
 
-<a type="button" class="btn @Model.ButtonType" href="@Url.Action(Model.Action)@Model.ActionParameters">
+<a type="button" class="btn @Model.ButtonType" href="@Url.Action(Model.Action, Model.Controller)@Model.ActionParameters">
     @Model.Text
 </a>
 

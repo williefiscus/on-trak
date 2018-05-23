@@ -8,47 +8,78 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using OnTrak.Models.ExtensionMethods;
 
 namespace OnTrak.Models.ViewModel
 {
     public static class BuildViewModel
     {
-        public static BodyAreaViewModel createBAreaViewModel(this IBodyAreaRepository bArea, IBodyPartRepository bPart, int? Id)
+        public static BodyAreaViewModel CreateBAreaViewModel(this IBodyAreaRepository bArea, IBodyPartRepository bPart, int? Id)
         {
             BodyArea bodyArea = bArea.getBodyAreaById(Id);
             BodyAreaViewModel bAreaVM = new BodyAreaViewModel()
             {
                 Name = bodyArea.Name,
-                Id = bodyArea.Id,
+                BodyAreaId = bodyArea.BodyAreaId,
                 Description = bodyArea.Description,
                 NumberOfParts = bodyArea.NumberOfParts,
                 Image = bodyArea.Image,
-                BodyParts = bPart.BodyParts.ToList()
+                BodyParts = bodyArea.gGetBodyParts(bPart)
             };
             return bAreaVM;
         }
 
-        public static BodyAreaViewModel createBAreaViewModel(this BodyArea bArea, IBodyPartRepository bPart)
+        public static BodyAreaViewModel CreateBAreaViewModel(this BodyArea bArea, IBodyPartRepository bPart)
         {
             BodyAreaViewModel bAreaVM = new BodyAreaViewModel()
             {
                 Name = bArea.Name,
-                Id = bArea.Id,
+                BodyAreaId = bArea.BodyAreaId,
                 Description = bArea.Description,
                 NumberOfParts = bArea.NumberOfParts,
                 Image = bArea.Image,
-                BodyParts = bPart.BodyParts.ToList()
+                BodyParts = bArea.gGetBodyParts(bPart)
             };
             return bAreaVM;
         }
+        public static ICollection<BodyPart> gGetBodyParts(this BodyArea bArea, IBodyPartRepository bodyParts)
+        {
+            List<BodyPart> bParts = new List<BodyPart>();
+            foreach (var part in bodyParts.BodyParts)
+            {
+                if (bArea.BodyAreaId == part.BodyAreaId)
+                {
+                    bParts.Add(part);
+                }
+            }
+            return bParts;
+        }
 
-        public static List<BodyAreaViewModel> createListBAreaVM(this List<BodyArea> bAreas, IBodyPartRepository bPart) {
+        public static List<BodyAreaViewModel> CreateListBAreaVM(this List<BodyArea> bAreas, IBodyPartRepository bPart)
+        {
             List<BodyAreaViewModel> bAreasVM = new List<BodyAreaViewModel>();
             foreach (var bArea in bAreas)
             {
-                bAreasVM.Add(bArea.createBAreaViewModel(bPart));
+                bAreasVM.Add(bArea.CreateBAreaViewModel(bPart));
             }
             return bAreasVM;
+        }
+
+        public static BodyPartsViewModel CreateBPartViewModel(this IBodyPartRepository bPart, IBodyAreaRepository bodyArea, int? Id)
+        {
+            BodyPart bodyPart = bPart.getBodyPartById(Id);
+            BodyPartsViewModel bPartVM = new BodyPartsViewModel()
+            {
+                Name = bodyPart.Name,
+                NumberOfMuscles = bodyPart.NumberOfMuscles,
+                BodyAreaId = bodyPart.BodyAreaId,
+                Description = bodyPart.Description,
+                Image = bodyPart.Image,
+                BodyPartId = bodyPart.BodyPartId,
+                BodyAreas = bodyArea.BodyAreas.ToList()
+            };
+
+            return bPartVM;
         }
     }
 }

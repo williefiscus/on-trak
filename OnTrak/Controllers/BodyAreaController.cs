@@ -23,23 +23,9 @@ namespace OnTrak.Controllers
             bodyPartRepository = bPartRepo;
         }
 
-        public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().createListBAreaVM(bodyPartRepository));
+        public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository));
         public ViewResult Edit(int? Id) {
-
-            //if (id == null || id <= 0)
-            //{
-               
-            //}
-            //BodyArea bodArea = bodyAreaRepository.getBodyAreaById(id);
-            //BodyAreaViewModel bAreaModel = new BodyAreaViewModel {
-            //    Name = bodArea.Name,
-            //    Id = bodArea.Id,
-            //    BodyParts = bodyPartRepository.BodyParts.ToList(),
-            //    NumberOfParts = bodArea.NumberOfParts,
-            //    Description = bodArea.Description,
-            //    Image = bodArea.Image
-            //};
-            return View(bodyAreaRepository.createBAreaViewModel(bodyPartRepository, Id));
+            return View(bodyAreaRepository.CreateBAreaViewModel(bodyPartRepository, Id));
         }
 
         [HttpPost]
@@ -49,7 +35,7 @@ namespace OnTrak.Controllers
             var filePath = Path.GetTempFileName();
             BodyArea bArea = new BodyArea
             {
-                Id = bodyAreaModel.Id,
+                BodyAreaId = bodyAreaModel.BodyAreaId,
                 Name = bodyAreaModel.Name,
                 Description = bodyAreaModel.Description,
                 NumberOfParts = bodyAreaModel.NumberOfParts,
@@ -64,7 +50,7 @@ namespace OnTrak.Controllers
             }
             else
             {
-                bArea.Image = bodyAreaRepository.getBodyAreaById(bodyAreaModel.Id).Image;
+                bArea.Image = bodyAreaRepository.getBodyAreaById(bodyAreaModel.BodyAreaId).Image;
             }
 
 

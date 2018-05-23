@@ -9,6 +9,7 @@ namespace OnTrak.Models.Repository.BodyData
     public interface IBodyPartRepository
     {
         IQueryable<BodyPart> BodyParts { get; }
-
+        BodyPart getBodyPartById(int? Id);
+        void SaveBodyPart(BodyPart bodyPart);
     }
 }

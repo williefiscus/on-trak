@@ -16,21 +16,21 @@ namespace OnTrak.Models.Data.EFRepo
             context = ctx;
         }
 
-        public BodyArea getBodyAreaById(int? id)
+        public BodyArea getBodyAreaById(int? Id)
         {
-            var bodyArea = context.BodyAreas.Find(id);
+            var bodyArea = context.BodyAreas.Find(Id);
             return bodyArea;
         }
 
         public void SaveBodyArea(BodyArea bodyArea)
         {
-            if (bodyArea.Id == 0)
+            if (bodyArea.BodyAreaId == 0)
             {
                 context.BodyAreas.Add(bodyArea);
             }
             else
             {
-                BodyArea dbEntry = context.BodyAreas.FirstOrDefault(ba => ba.Id == bodyArea.Id);
+                BodyArea dbEntry = context.BodyAreas.FirstOrDefault(ba => ba.BodyAreaId == bodyArea.BodyAreaId);
                 if (dbEntry != null)
                 {
                     dbEntry.Image = bodyArea.Image;
