@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using OnTrak.Models.Repository.BodyData;
 using OnTrak.Models.ViewModel;
 using OnTrak.Models.ViewModels;
@@ -17,15 +19,20 @@ namespace OnTrak.Controllers
     {
         private IBodyAreaRepository bodyAreaRepository;
         private IBodyPartRepository bodyPartRepository;
-        public BodyAreaController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo)
+        private IMuscleRepository muscleRepository;
+
+        public DBGetter dbGetter = new DBGetter();
+        public BodyAreaController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
         {
             bodyAreaRepository = bAreaRepo;
             bodyPartRepository = bPartRepo;
+            muscleRepository = muscleRepo;
+            dbGetter.AssignData(muscleRepository.Muscles.ToList(), bodyAreaRepository.BodyAreas.ToList(), bodyPartRepository.BodyParts.ToList());
         }
 
-        public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository));
+        public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
         public ViewResult Edit(int? Id) {
-            return View(bodyAreaRepository.CreateBAreaViewModel(bodyPartRepository, Id));
+            return View(bodyAreaRepository.CreateBAreaViewModel(bodyPartRepository, Id, dbGetter));
         }
 
         [HttpPost]

@@ -18,5 +18,17 @@ namespace OnTrak.Models.ExtensionMethods
                        Selected = item.GetPropertyValue("BodyAreaId").Equals(selectedValue.ToString())
                    };
         }
+
+
+        public static IEnumerable<SelectListItem> BPartToSelectListItem<T>(this ICollection<T> items, int selectedValue)
+        {
+            return from item in items
+                   select new SelectListItem
+                   {
+                       Text = item.GetPropertyValue("Name"),
+                       Value = item.GetPropertyValue("BodyPartId"),
+                       Selected = item.GetPropertyValue("BodyPartId").Equals(selectedValue.ToString())
+                   };
+        }
     }
 }

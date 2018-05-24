@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<BodyAreaViewModel>
 @using OnTrak.Models.ViewModels
 @using OnTrak.Models.UIModel
+@using OnTrak.Models.ViewModel
+@using OnTrak.Models.Data.EFRepo
 
 @foreach (var bodyArea in Model)
 {
@@ -10,6 +12,7 @@
         </h3>
         <div><img class="img-thumbnail" src="/BodyArea/RetrieveImage/@bodyArea.BodyAreaId" alt="" /></div>
         <div>@bodyArea.Description</div> <br />
+        <h4>Body Part</h4><br />
         @if (bodyArea.BodyParts.Count == 0)
         {<div>The are currently no parts for this category</div>}
         else
@@ -18,16 +21,34 @@
             <ul>
                 @foreach (var part in bodyArea.BodyParts)
                 {
-                    <li>
-                        @part.Name
-                    </li>
+                <li>
+                    @part.Name
+                    <h4>Muscles</h4><br />
+                    @if (bodyArea.BodyParts.Count == 0)
+                    {<div>The are currently no parts for this category</div>}
+                    else
+                    {
+                        <ul>
+                            @foreach (var muscle in part.Muscles)
+                            {
+                                <li>
+                                    @Html.Partial("_SmallButtonPartial", new SmallButtonModel { MuscleId = muscle.MuscleId, Text = muscle.Name, Action = "Edit" })
+                                    <div><img class="img-thumbnail" src="/Muscle/RetrieveImage/@muscle.MuscleId" alt="" /></div>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </li>
                 }
-            </ul>
+                    </ul>
+                }
+                @Html.Partial("_TableButtonsPartial", new SmallButtonModel { BodyAreaId = bodyArea.BodyAreaId })
+            </div>
         }
-        @Html.Partial("_TableButtonsPartial", new SmallButtonModel { BodyAreaId = bodyArea.BodyAreaId })
-    </div>
-}
 
-<a type="button" class="btn btn-dark " href="@Url.Action("Create", "BodyPart")">
-    Add A Body Part
-</a>
+        <a type="button" class="btn btn-dark " href="@Url.Action("Create", "BodyPart")">
+            Add A Body Part
+        </a>
+        <a type="button" class="btn btn-dark " href="@Url.Action("Create", "Muscle")">
+            Add A Muscle
+        </a>

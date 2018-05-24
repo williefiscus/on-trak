@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OnTrak.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

@@ -30,6 +30,8 @@ namespace OnTrak
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
             services.AddTransient<IBodyAreaRepository, EFBodyAreaRepository>();
             services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
+            services.AddTransient<IMuscleRepository, EFMuscleRepository>();
+
             services.AddMvc();
         }
 

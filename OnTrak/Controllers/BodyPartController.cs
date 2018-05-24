@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
 using OnTrak.Models.Repository.BodyData;
@@ -18,10 +19,14 @@ namespace OnTrak.Controllers
 
         private IBodyAreaRepository bodyAreaRepository;
         private IBodyPartRepository bodyPartRepository;
-        public BodyPartController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo)
+        private IMuscleRepository muscleRepository;
+        public DBGetter dbGetter = new DBGetter();
+        public BodyPartController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
         {
             bodyAreaRepository = bAreaRepo;
             bodyPartRepository = bPartRepo;
+            muscleRepository = muscleRepo;
+            dbGetter.AssignData(muscleRepository.Muscles.ToList(), bodyAreaRepository.BodyAreas.ToList(), bodyPartRepository.BodyParts.ToList());
         }
 
         public ViewResult Create()
@@ -39,7 +44,6 @@ namespace OnTrak.Controllers
         public async Task<IActionResult> Create(BodyPartsViewModel bodyPart, IFormFile file)
         {
             var filePath = Path.GetTempFileName();
-            ModelState.Remove("Id");
             BodyPart bPart = new BodyPart
             {
                 BodyPartId = bodyPart.BodyPartId,
@@ -55,22 +59,21 @@ namespace OnTrak.Controllers
                     bPart.Image = memoryStream.ToArray();
                 }
             }
-            BodyAreaViewModel BA = bodyAreaRepository.CreateBAreaViewModel(bodyPartRepository, bodyPart.BodyAreaId);
 
             if (ModelState.IsValid)
             {
                 bodyPartRepository.SaveBodyPart(bPart);
                 TempData["Message"] = $"{bodyPart.Name} has been created";
-                return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository));
+                return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
             }
             else
-                return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository));
+                return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
         }
 
 
         public ViewResult Edit(int? Id)
         {
-            return View(bodyPartRepository.CreateBPartViewModel(bodyAreaRepository, Id));
+            return View(bodyPartRepository.CreateBPartViewModel(bodyAreaRepository, Id, dbGetter));
         }
 
         [HttpPost]

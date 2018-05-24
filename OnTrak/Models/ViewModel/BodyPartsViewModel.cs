@@ -1,6 +1,7 @@
 ﻿
 using OnTrak.Models.Entities;
 using OnTrak.Models.Entities.Body;
+using OnTrak.Models.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace OnTrak.Models.ViewModels
         public string Description { get; set; }
         public Byte[] Image { get; set; }
         public ICollection<BodyArea> BodyAreas { get; set; }
-        public ICollection<Muscle> Muscles { get; set; }
+        public ICollection<MuscleViewModel> Muscles { get; set; }
 
     }
 }

@@ -20,6 +20,10 @@ namespace OnTrak.Models.UIModel
                 {
                     controller = "BodyPart";
                 }
+                if (MuscleId != null || MuscleId > 0)
+                {
+                    controller = "Muscle";
+                }
                 return controller;
 
             }
@@ -30,6 +34,7 @@ namespace OnTrak.Models.UIModel
         public int? Id { get; set; }
         public int? BodyAreaId { get; set; }
         public int? BodyPartId { get; set; }
+        public int? MuscleId { get; set; }
         public string ActionParameters
         {
             get
@@ -46,6 +51,10 @@ namespace OnTrak.Models.UIModel
                 if (BodyPartId != null || BodyPartId > 0)
                 {
                     param.Append(String.Format("{0}={1}&", "Id", BodyPartId));
+                }
+                if (MuscleId != null || MuscleId > 0)
+                {
+                    param.Append(String.Format("{0}={1}&", "Id", MuscleId));
                 }
                 return param.ToString().Substring(0, param.Length - 1);
             }
