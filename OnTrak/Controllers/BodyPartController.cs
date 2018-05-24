@@ -46,23 +46,21 @@ namespace OnTrak.Controllers
                 Name = bodyPart.Name,
                 Description = bodyPart.Description,
                 BodyAreaId = bodyPart.BodyAreaId,
-                NumberOfMuscles = bodyPart.NumberOfMuscles
             };
             if (file != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
-                    bodyPart.Image = memoryStream.ToArray();
+                    bPart.Image = memoryStream.ToArray();
                 }
             }
             BodyAreaViewModel BA = bodyAreaRepository.CreateBAreaViewModel(bodyPartRepository, bodyPart.BodyAreaId);
 
-                //context.BodyAreas.FirstOrDefault(ba => ba.Id == bodyPart.BodyAreaId);
             if (ModelState.IsValid)
             {
                 bodyPartRepository.SaveBodyPart(bPart);
-                TempData["Message"] = $"{bodyPart.Name} has been saved";
+                TempData["Message"] = $"{bodyPart.Name} has been created";
                 return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository));
             }
             else
@@ -85,7 +83,6 @@ namespace OnTrak.Controllers
                 BodyPartId = bodyPartVM.BodyPartId,
                 Name = bodyPartVM.Name,
                 Description = bodyPartVM.Description,
-                NumberOfMuscles = bodyPartVM.NumberOfMuscles,
                 BodyAreaId = bodyPartVM.BodyAreaId,
             };
             if (file != null)
@@ -98,7 +95,7 @@ namespace OnTrak.Controllers
             }
             else
             {
-                bPart.Image = bodyAreaRepository.getBodyAreaById(bPart.BodyPartId).Image;
+                bPart.Image = bodyPartRepository.getBodyPartById(bPart.BodyPartId).Image;
             }
 
 
@@ -106,7 +103,7 @@ namespace OnTrak.Controllers
             {
                 bodyPartRepository.SaveBodyPart(bPart);
                 TempData["Message"] = $"{bPart.Name} has been saved";
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "BodyArea");
             }
             else
                 return View(bodyPartVM);
@@ -128,7 +125,7 @@ namespace OnTrak.Controllers
 
         public byte[] GetImageFromDataBase(int Id)
         {
-            var photo = bodyAreaRepository.getBodyAreaById(Id).Image;
+            var photo = bodyPartRepository.getBodyPartById(Id).Image;
             byte[] cover = photo;
             return cover;
         }

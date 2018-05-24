@@ -27,24 +27,19 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    @Html.HiddenFor(Id => Model.BodyPartId);
+                    @Html.HiddenFor(Id => Model.BodyPartId)
                 </div>
                 <div class="form-group">
                     @Html.LabelFor(model => model.BodyAreas, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
                         @Html.DropDownListFor(model => model.BodyAreaId,
-                        Model.BodyAreas.ToSelectListItem(Model.BodyAreaId),
+                        Model.BodyAreas.BAreaToSelectListItem(Model.BodyAreaId),
                        new { @class = "form-control" })
                         @Html.ValidationMessageFor(model => model.BodyAreaId, "", new { @class = "text-danger" })
                     </div>
                 </div>
-
                 <div class="form-group">
-                    <label asp-for="NumberOfMuscles" class="control-label"></label>
-                    <input asp-for="NumberOfMuscles" class="form-control" />
-                    <span asp-validation-for="NumberOfMuscles" class="text-danger"></span>
-                </div>
-                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
                     @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                 </div>
                 <div class="form-group">
@@ -59,7 +54,7 @@
     </div>
 
     <div>
-        <a asp-action="Index">Back to List</a>
+        <a href="@Url.Action("Index", "BodyArea")">Back to List</a>
     </div>
 
 </body>

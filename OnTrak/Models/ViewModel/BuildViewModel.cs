@@ -22,7 +22,6 @@ namespace OnTrak.Models.ViewModel
                 Name = bodyArea.Name,
                 BodyAreaId = bodyArea.BodyAreaId,
                 Description = bodyArea.Description,
-                NumberOfParts = bodyArea.NumberOfParts,
                 Image = bodyArea.Image,
                 BodyParts = bodyArea.gGetBodyParts(bPart)
             };
@@ -36,7 +35,6 @@ namespace OnTrak.Models.ViewModel
                 Name = bArea.Name,
                 BodyAreaId = bArea.BodyAreaId,
                 Description = bArea.Description,
-                NumberOfParts = bArea.NumberOfParts,
                 Image = bArea.Image,
                 BodyParts = bArea.gGetBodyParts(bPart)
             };
@@ -71,7 +69,6 @@ namespace OnTrak.Models.ViewModel
             BodyPartsViewModel bPartVM = new BodyPartsViewModel()
             {
                 Name = bodyPart.Name,
-                NumberOfMuscles = bodyPart.NumberOfMuscles,
                 BodyAreaId = bodyPart.BodyAreaId,
                 Description = bodyPart.Description,
                 Image = bodyPart.Image,

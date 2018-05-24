@@ -35,9 +35,7 @@ namespace OnTrak.Models.Data.EFRepo
                 {
                     dbEntry.Image = bodyArea.Image;
                     dbEntry.Name = bodyArea.Name;
-                    dbEntry.NumberOfParts = bodyArea.NumberOfParts;
                     dbEntry.Description = bodyArea.Description;
-                    dbEntry.NumberOfParts = bodyArea.NumberOfParts;
                 }
                 
             }

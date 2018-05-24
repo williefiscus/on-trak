@@ -24,6 +24,10 @@
                 }
             </ul>
         }
-                    @Html.Partial("_TableButtonsPartial", new SmallButtonModel { BodyAreaId = bodyArea.BodyAreaId})
-        </div>
-    }
+        @Html.Partial("_TableButtonsPartial", new SmallButtonModel { BodyAreaId = bodyArea.BodyAreaId })
+    </div>
+}
+
+<a type="button" class="btn btn-dark " href="@Url.Action("Create", "BodyPart")">
+    Add A Body Part
+</a>

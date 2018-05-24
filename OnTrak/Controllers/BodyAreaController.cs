@@ -38,7 +38,6 @@ namespace OnTrak.Controllers
                 BodyAreaId = bodyAreaModel.BodyAreaId,
                 Name = bodyAreaModel.Name,
                 Description = bodyAreaModel.Description,
-                NumberOfParts = bodyAreaModel.NumberOfParts,
             };
             if (file != null)
             {

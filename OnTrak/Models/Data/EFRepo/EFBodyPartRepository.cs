@@ -30,19 +30,17 @@ namespace OnTrak.Models.Repository.EFRepository
             {
                 context.BodyParts.Add(bodyPart);
                 BodyArea dbEntry = context.BodyAreas.FirstOrDefault(ba => ba.BodyAreaId == bodyPart.BodyAreaId);
-                dbEntry.NumberOfParts += 1;
             }
             else
             {
-            //    BodyArea dbEntry = context.BodyAreas.FirstOrDefault(ba => ba.Id == bodyArea.Id);
-            //    if (dbEntry != null)
-            //    {
-            //        dbEntry.Image = bodyArea.Image;
-            //        dbEntry.Name = bodyArea.Name;
-            //        dbEntry.NumberOfParts = bodyArea.NumberOfParts;
-            //        dbEntry.Description = bodyArea.Description;
-            //        dbEntry.NumberOfParts = bodyArea.NumberOfParts;
-            //    }
+                BodyPart dbEntry = context.BodyParts.FirstOrDefault(bP => bP.BodyPartId == bodyPart.BodyPartId);
+                if (dbEntry != null)
+                {
+                    dbEntry.Name = bodyPart.Name;
+                    dbEntry.Description = bodyPart.Description;
+                    dbEntry.BodyAreaId = bodyPart.BodyAreaId;
+                    dbEntry.Image = bodyPart.Image;
+                }
 
             }
             context.SaveChanges();
