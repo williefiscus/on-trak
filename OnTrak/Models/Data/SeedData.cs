@@ -18,9 +18,9 @@ namespace OnTrak.Models
             if (!context.BodyAreas.Any())
             {
                 context.BodyAreas.AddRange(
-                      new BodyArea { Name = "Upper Body", NumberOfParts = 0, Description = "", Image = null },
-                      new BodyArea { Name = "Lower Body", NumberOfParts = 0, Description = "", Image = null },
-                      new BodyArea { Name = "Core", NumberOfParts = 0, Description = "", Image = null }
+                      new BodyArea { Name = "Upper Body",Description = "", Image = null },
+                      new BodyArea { Name = "Lower Body",Description = "", Image = null },
+                      new BodyArea { Name = "Core",Description = "", Image = null }
                     );
 
                 context.SaveChanges();

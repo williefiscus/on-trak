@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,6 @@ namespace OnTrak.Models
 
         public DbSet<BodyArea> BodyAreas { get; set; }
         public DbSet<BodyPart> BodyParts { get; set; }
+        public DbSet<Muscle> Muscles { get; set; }
     }
 }

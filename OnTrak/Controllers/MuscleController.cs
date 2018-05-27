@@ -1,8 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using OnTrak.Migrations;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
-using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using OnTrak.Models.Repository.BodyData;
 using OnTrak.Models.ViewModel;
 using OnTrak.Models.ViewModels;
@@ -14,14 +15,14 @@ using System.Threading.Tasks;
 
 namespace OnTrak.Controllers
 {
-    public class BodyPartController : Controller
+    public class MuscleController : Controller
     {
 
         private IBodyAreaRepository bodyAreaRepository;
         private IBodyPartRepository bodyPartRepository;
         private IMuscleRepository muscleRepository;
         public DBGetter dbGetter = new DBGetter();
-        public BodyPartController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
+        public MuscleController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
         {
             bodyAreaRepository = bAreaRepo;
             bodyPartRepository = bPartRepo;
@@ -29,88 +30,94 @@ namespace OnTrak.Controllers
             dbGetter.AssignData(muscleRepository.Muscles.ToList(), bodyAreaRepository.BodyAreas.ToList(), bodyPartRepository.BodyParts.ToList());
         }
 
+
+
         public ViewResult Create()
         {
-            BodyPartsViewModel bPartVM = new BodyPartsViewModel
+            MuscleViewModel muscleVM = new MuscleViewModel
             {
-                BodyAreas = bodyAreaRepository.BodyAreas.ToList()
+                BodyParts = bodyPartRepository.BodyParts.ToList()
             };
-            return View(bPartVM);
+            return View(muscleVM);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(BodyPartsViewModel bodyPart, IFormFile file)
+        public async Task<IActionResult> Create(MuscleViewModel muscleVM, IFormFile file)
         {
             var filePath = Path.GetTempFileName();
-            BodyPart bPart = new BodyPart
+            Muscle muscle = new Muscle
             {
-                BodyPartId = bodyPart.BodyPartId,
-                Name = bodyPart.Name,
-                Description = bodyPart.Description,
-                BodyAreaId = bodyPart.BodyAreaId,
+               BodyPartId = muscleVM.BodyPartId,
+               Description = muscleVM.Description,
+               Image = muscleVM.Image,
+               MuscleId = muscleVM.MuscleId,
+               Name = muscleVM.Name
             };
             if (file != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
-                    bPart.Image = memoryStream.ToArray();
+                    muscle.Image = memoryStream.ToArray();
                 }
             }
 
             if (ModelState.IsValid)
             {
-                bodyPartRepository.SaveBodyPart(bPart);
-                TempData["Message"] = $"{bodyPart.Name} has been created";
+                muscleRepository.SaveMuscle(muscle);
+                TempData["Message"] = $"{muscle.Name} has been created";
                 return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
             }
             else
                 return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
         }
+
 
 
         public ViewResult Edit(int? Id)
         {
-            return View(bodyPartRepository.CreateBPartViewModel(bodyAreaRepository, Id, dbGetter));
+            return View(muscleRepository.getMusceById(Id).CreateMuscleViewModel(dbGetter));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(BodyPartsViewModel bodyPartVM, IFormFile file)
+        public async Task<IActionResult> Edit(MuscleViewModel muscleVM, IFormFile file)
         {
             var filePath = Path.GetTempFileName();
-            BodyPart bPart = new BodyPart
+            Muscle muscle = new Muscle
             {
-                BodyPartId = bodyPartVM.BodyPartId,
-                Name = bodyPartVM.Name,
-                Description = bodyPartVM.Description,
-                BodyAreaId = bodyPartVM.BodyAreaId,
+                BodyPartId = muscleVM.BodyPartId,
+                Name = muscleVM.Name,
+                Description = muscleVM.Description,
+                MuscleId = muscleVM.MuscleId
             };
             if (file != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
-                    bPart.Image = memoryStream.ToArray();
+                    muscle.Image = memoryStream.ToArray();
                 }
             }
             else
             {
-                bPart.Image = bodyPartRepository.getBodyPartById(bPart.BodyPartId).Image;
+                muscle.Image = muscleRepository.getMusceById(muscle.MuscleId).Image;
             }
 
 
             if (ModelState.IsValid)
             {
-                bodyPartRepository.SaveBodyPart(bPart);
-                TempData["Message"] = $"{bPart.Name} has been saved";
+                muscleRepository.SaveMuscle(muscle);
+                TempData["Message"] = $"{muscle.Name} has been saved";
                 return RedirectToAction("Index", "BodyArea");
             }
             else
-                return View(bodyPartVM);
+                return View(muscleVM);
         }
+
+
 
         public ActionResult RetrieveImage(int Id)
         {
@@ -128,7 +135,7 @@ namespace OnTrak.Controllers
 
         public byte[] GetImageFromDataBase(int Id)
         {
-            var photo = bodyPartRepository.getBodyPartById(Id).Image;
+            var photo = muscleRepository.getMusceById(Id).Image;
             byte[] cover = photo;
             return cover;
         }

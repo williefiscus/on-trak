@@ -1,4 +1,4 @@
-﻿@model OnTrak.Models.ViewModels.BodyPartsViewModel
+﻿@model OnTrak.Models.ViewModel.MuscleViewModel
 @using OnTrak.Models.ExtensionMethods
 @{
     Layout = "_Layout";
@@ -14,11 +14,11 @@
 </head>
 <body>
 
-    <h4>BodyPart</h4>
+    <h4>Muscle</h4>
     <hr />
     <div class="row">
         <div class="col-md-4">
-            <form asp-action="Create" enctype="multipart/form-data" method="post">
+            <form asp-action="Edit" enctype="multipart/form-data" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
                 <div class="form-group">
@@ -27,27 +27,29 @@
                     <span asp-validation-for="Name" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    @Html.HiddenFor(Id => Model.BodyPartId)
+                    @Html.HiddenFor(Id => Model.MuscleId)
                 </div>
                 <div class="form-group">
-                    @Html.LabelFor(model => model.BodyAreas, htmlAttributes: new { @class = "control-label col-md-2" })
+                    @Html.LabelFor(model => model.BodyParts, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.DropDownListFor(model => model.BodyAreaId,
-                        Model.BodyAreas.BAreaToSelectListItem(Model.BodyAreaId),
+                        @Html.DropDownListFor(model => model.BodyPartId,
+                        Model.BodyParts.BPartToSelectListItem(Model.BodyPartId),
                        new { @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.BodyAreaId, "", new { @class = "text-danger" })
+                        @Html.ValidationMessageFor(model => model.BodyPartId, "", new { @class = "text-danger" })
                     </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="Description" class="control-label"></label>
                     @Html.TextAreaFor(m => m.Description, new { @class = "form-control" })
                 </div>
+
                 <div class="form-group">
                     <label asp-for="Image" class="control-label"></label>
+                    <div><img class="img-thumbnail" src="/Muscle/RetrieveImage/@Model.MuscleId" alt="" /></div>
                     <input type="file" accept="image/*" name="file" multiple />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </form>
         </div>

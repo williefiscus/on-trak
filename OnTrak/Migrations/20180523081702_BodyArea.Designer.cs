@@ -3,38 +3,23 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Storage.Internal;
 using OnTrak.Models;
 using System;
 
 namespace OnTrak.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180523081702_BodyArea")]
+    partial class BodyArea
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.3-rtm-10026")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("OnTrak.Models.Entities.Body.Muscle", b =>
-                {
-                    b.Property<int>("MuscleId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("BodyPartId");
-
-                    b.Property<string>("Description");
-
-                    b.Property<byte[]>("Image");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("MuscleId");
-
-                    b.ToTable("Muscles");
-                });
 
             modelBuilder.Entity("OnTrak.Models.Entities.BodyArea", b =>
                 {
@@ -46,6 +31,8 @@ namespace OnTrak.Migrations
                     b.Property<byte[]>("Image");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("NumberOfParts");
 
                     b.HasKey("BodyAreaId");
 
@@ -64,6 +51,8 @@ namespace OnTrak.Migrations
                     b.Property<byte[]>("Image");
 
                     b.Property<string>("Name");
+
+                    b.Property<int>("NumberOfMuscles");
 
                     b.HasKey("BodyPartId");
 
