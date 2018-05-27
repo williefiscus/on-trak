@@ -1,11 +1,12 @@
 ﻿using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using OnTrak.Models.Repository.BodyData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OnTrak.Models.Repository.EFRepository
+namespace OnTrak.Models.Data.EFRepo
 {
     public class EFBodyPartRepository : IBodyPartRepository
     {

@@ -1,6 +1,4 @@
-﻿
-using OnTrak.Models.Entities;
-using OnTrak.Models.Entities.Body;
+﻿using OnTrak.Models.Entities.Body;
 using OnTrak.Models.ViewModel;
 using System;
 using System.Collections.Generic;

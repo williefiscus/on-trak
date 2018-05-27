@@ -12,7 +12,6 @@ using OnTrak.Models;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Repository.BodyData;
-using OnTrak.Models.Repository.EFRepository;
 
 namespace OnTrak
 {

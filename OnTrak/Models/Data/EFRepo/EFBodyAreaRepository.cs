@@ -1,5 +1,6 @@
 ﻿using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,12 +15,6 @@ namespace OnTrak.Models.Data.EFRepo
         public EFBodyAreaRepository(ApplicationDbContext ctx)
         {
             context = ctx;
-        }
-
-        public BodyArea getBodyAreaById(int? Id)
-        {
-            var bodyArea = context.BodyAreas.Find(Id);
-            return bodyArea;
         }
 
         public void SaveBodyArea(BodyArea bodyArea)
@@ -41,6 +36,12 @@ namespace OnTrak.Models.Data.EFRepo
             }
             context.SaveChanges();
 
+        }
+
+        public BodyArea getBodyAreaById(int? Id)
+        {
+            var bodyArea = context.BodyAreas.Find(Id);
+            return bodyArea;
         }
 
         public IQueryable<BodyArea> BodyAreas => context.BodyAreas;

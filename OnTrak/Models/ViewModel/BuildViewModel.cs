@@ -2,7 +2,6 @@
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
 using OnTrak.Models.Repository.BodyData;
-using OnTrak.Models.Repository.EFRepository;
 using OnTrak.Models.ViewModels;
 using System;
 using System.Collections.Generic;

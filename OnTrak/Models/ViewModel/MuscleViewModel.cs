@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Activities;
 
 namespace OnTrak.Models.ViewModel
 {

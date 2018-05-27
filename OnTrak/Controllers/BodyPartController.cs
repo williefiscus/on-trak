@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
+using OnTrak.Models.Entities.Body;
 using OnTrak.Models.Repository.BodyData;
 using OnTrak.Models.ViewModel;
 using OnTrak.Models.ViewModels;
