@@ -24,6 +24,7 @@ namespace OnTrak.Controllers
         }
 
         public ViewResult Index() => View(bodyAreaRepository.BodyAreas.ToList().createListBAreaVM(bodyPartRepository));
+
         public ViewResult Edit(int? Id) {
 
             //if (id == null || id <= 0)

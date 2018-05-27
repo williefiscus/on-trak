@@ -43,9 +43,9 @@ namespace OnTrak
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=BodyArea}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
             });
-            SeedData.EnsurePopulated(app);
+            //SeedData.EnsurePopulated(app);
         }
         
     }

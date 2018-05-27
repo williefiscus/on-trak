@@ -1,0 +1,244 @@
+body {
+    font-family: 'Open Sans', Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.6em;
+}
+.container {
+    display: table;
+    content: " ";
+}
+.clear {
+	clear:both;
+}
+/*  NavBar
+==================================== */
+.navbar {
+    background-color: #515151 !important;
+}
+.navbar-dark .navbar-brand {
+    font-size: 30px;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff;
+    font-size: 16px;
+}
+    .navbar-dark .navbar-nav .nav-link:hover {
+        color: #26AFF0;
+    }
+
+#navbars-head .form-control {
+    display: block;
+    width: 100%;
+    padding: 2px 2px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #000000;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #515151; 
+    border-radius: .25rem;
+}
+.navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255, 255, 255, 0.5");
+}
+/*  End of NavBar
+==================================== */
+.carousel-inner .carousel-item img {
+    width: 100%;
+    height: auto;
+}
+/*  Second Line
+==================================== */
+#second-line {
+    background: #515151;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+#second-line h2{
+    color: #ffffff;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+#second-line .container p{
+    color: #ffffff;
+    float: left;
+}
+
+#second-line img{
+    float: left;
+    clear: both;
+    margin: 0 0 10px 10px;
+}
+@media (max-width: 767px){
+#second-line .container p{
+    float: none;
+}
+
+#second-line img{
+    float: none;
+}
+}
+
+
+/*  Third Line
+==================================== */
+#third-line{
+    background: #fffff;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+#third-line h2{
+    color: #515151;
+    padding-left: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+#third-line h3{
+    color: #515151;;
+}
+#third-line .container p{
+    color: #515151;
+}
+
+
+/*  About Page
+==================================== */
+#about .about-sec-1{
+    padding-bottom: 20px;
+}
+
+#about .about-sec-2{
+    padding-bottom: 20px;
+}
+#about .about-sec-3{
+    padding-bottom: 20px;
+}
+#about .about-sec-4{
+    padding-bottom: 20px;
+}
+
+/*=====Solution=====*/
+#solution .sol-panel-heading h4 {
+text-decoration: none;
+padding-top: 15px;
+padding-bottom: 15px;
+padding-left: 15px;
+}
+
+.sol-panel-title {
+margin-top: 0;
+margin-bottom: 0;
+font-size: inherit;
+color: inherit;
+}
+
+.sol-panel-group .sol-panel {
+margin-bottom: 5px;
+border-radius: 5px;
+}
+
+.sol-panel {
+margin-bottom: 18px;
+border: 1px solid gainsboro;
+border-radius: 2px;
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
+ 
+.sol-panel .panel-body {
+background: #515151;
+border-radius: 5px;
+color: #ffffff;
+}
+.sol-panel a {
+color: inherit;
+text-decoration: none;
+}
+
+/*====Progress Bar====*/
+.progress.pb-sm {
+height: 6px!important;
+}
+.progress {
+box-shadow: inset 0 0 2px rgba(0,0,0,.1);
+}
+.progress {
+overflow: hidden;
+height: 18px;
+margin-bottom: 18px;
+background-color: #f5f5f5;
+border-radius: 2px;
+-webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+.progress .progress-bar.progress-bar-red {
+background: #ed5441;
+} 
+.progress .progress-bar.progress-bar-green {
+background: #51d466;
+}
+.progress .progress-bar.progress-bar-lblue {
+background: #32c8de;
+}
+
+/*==========Our Team==============*/
+#team .team-member {
+    text-align: center;
+    background-color: #F9F9F9;
+    padding-bottom: 15px;
+    width: 100%;
+    height: auto;
+}
+
+#team .team-member img{
+    border: 1px solid #E6E6E6;
+}
+
+
+/*  End of About Page
+==================================== */
+
+
+/*  Profile Page
+==================================== */
+
+#profile h2{
+    margin-bottom: 20px;
+}
+
+#profile .user{
+    background-image: url('../img/party.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    padding-top: 25px;
+    padding-bottom: 15px;
+    border: 1px solid #515151;
+    border-radius: 5px;
+}
+
+#profile .row {
+    margin: 0;
+}
+
+/*  End of Profile Page
+==================================== */
+
+/*  Media queries 
+==================================== */
+
+@media (min-width: 1900px) {
+    .container {
+        max-width: 1800px;
+    }
+}
+@media (min-width: 1500px) {
+    .container {
+        max-width: 1400px;
+    }
+}

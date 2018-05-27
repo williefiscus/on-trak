@@ -5,13 +5,30 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <Compile Remove="Migrations\20180523015444_id.cs" />
+    <Compile Remove="Migrations\20180523015444_id.Designer.cs" />
+    <Compile Remove="Migrations\20180523015458_Description.cs" />
+    <Compile Remove="Migrations\20180523015458_Description.Designer.cs" />
+    <Compile Remove="Migrations\20180523021444_BodyAreas -IgnoreChanges.cs" />
+    <Compile Remove="Migrations\20180523021444_BodyAreas -IgnoreChanges.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.Dotnet" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\lib\Styles\Image\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\fit-1.jpg" />
+    <None Include="wwwroot\Images\fit-2.jpg" />
+    <None Include="wwwroot\Images\fit-3.jpg" />
+    <None Include="wwwroot\Images\fit-icon-white.png" />
+    <None Include="wwwroot\Images\fit-icon.png" />
   </ItemGroup>
 
 </Project>
