@@ -38,7 +38,7 @@ namespace OnTrak.Models.Data.EFRepo
 
         }
 
-        public BodyArea getBodyAreaById(int? Id)
+        public BodyArea GetBodyAreaById(int? Id)
         {
             var bodyArea = context.BodyAreas.Find(Id);
             return bodyArea;

@@ -12,7 +12,7 @@ namespace OnTrak.Models.Data.EFRepo
 
         public IQueryable<Muscle> Muscles => context.Muscles;
 
-        public Muscle getMusceById(int? Id)
+        public Muscle GetMusceById(int? Id)
         {
             var muscle = context.Muscles.Find(Id);
             return muscle;

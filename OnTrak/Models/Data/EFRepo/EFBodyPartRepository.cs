@@ -1,6 +1,6 @@
-﻿using OnTrak.Models.Entities;
+﻿using OnTrak.Models.Data.Repository;
+using OnTrak.Models.Entities;
 using OnTrak.Models.Entities.Body;
-using OnTrak.Models.Repository.BodyData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,7 +19,7 @@ namespace OnTrak.Models.Data.EFRepo
 
         public IQueryable<BodyPart> BodyParts => context.BodyParts;
 
-        public BodyPart getBodyPartById(int? Id)
+        public BodyPart GetBodyPartById(int? Id)
         {
             var bodyPart = context.BodyParts.Find(Id);
             return bodyPart;

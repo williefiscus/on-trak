@@ -9,7 +9,7 @@ namespace OnTrak.Models.Data.Repository
     public interface IMuscleRepository
     {
         IQueryable<Muscle> Muscles { get; }
-        Muscle getMusceById(int? Id);
+        Muscle GetMusceById(int? Id);
         void SaveMuscle(Muscle muscle);
     }
 }

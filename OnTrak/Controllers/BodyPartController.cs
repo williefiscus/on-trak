@@ -4,9 +4,7 @@ using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
 using OnTrak.Models.Entities.Body;
-using OnTrak.Models.Repository.BodyData;
 using OnTrak.Models.ViewModel;
-using OnTrak.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -99,7 +97,7 @@ namespace OnTrak.Controllers
             }
             else
             {
-                bPart.Image = bodyPartRepository.getBodyPartById(bPart.BodyPartId).Image;
+                bPart.Image = bodyPartRepository.GetBodyPartById(bPart.BodyPartId).Image;
             }
 
 
@@ -129,7 +127,7 @@ namespace OnTrak.Controllers
 
         public byte[] GetImageFromDataBase(int Id)
         {
-            var photo = bodyPartRepository.getBodyPartById(Id).Image;
+            var photo = bodyPartRepository.GetBodyPartById(Id).Image;
             byte[] cover = photo;
             return cover;
         }

@@ -10,7 +10,7 @@ namespace OnTrak.Models.Data.Repository
     public interface IBodyAreaRepository
     {
         IQueryable<BodyArea> BodyAreas { get; }
-        BodyArea getBodyAreaById(int? Id);
+        BodyArea GetBodyAreaById(int? Id);
         void SaveBodyArea(BodyArea bodyArea);
     }
 }

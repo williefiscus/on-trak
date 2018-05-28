@@ -1,11 +1,11 @@
 ﻿using OnTrak.Models.Data.Repository;
-using OnTrak.Models.Repository.BodyData;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using OnTrak.Models.Entities;
 using OnTrak.Models.Entities.Body;
+using OnTrak.Models.Entities.Activities;
 
 namespace OnTrak.Models.Data.EFRepo
 {
@@ -14,6 +14,7 @@ namespace OnTrak.Models.Data.EFRepo
         public List<Muscle> muscles;
         public List<BodyArea> bodyAreas;
         public List<BodyPart> bodyParts;
+        public List<Exercise> Exercises; 
         public DBGetter() {
            
 
@@ -24,6 +25,14 @@ namespace OnTrak.Models.Data.EFRepo
             muscles = muscleRepo;
             bodyParts = bPartRepo;
             bodyAreas = bAreaRepo;
+        }
+
+        public void AssignData(List<Muscle> muscleRepo, List<BodyArea> bAreaRepo, List<BodyPart> bPartRepo, List<Exercise> exerciseRepo)
+        {
+            muscles = muscleRepo;
+            bodyParts = bPartRepo;
+            bodyAreas = bAreaRepo;
+            Exercises = exerciseRepo;
         }
     }
 }

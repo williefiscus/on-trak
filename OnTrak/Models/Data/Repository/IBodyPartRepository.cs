@@ -5,12 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using OnTrak.Models.Entities;
 
-namespace OnTrak.Models.Repository.BodyData
+namespace OnTrak.Models.Data.Repository
 {
     public interface IBodyPartRepository
     {
         IQueryable<BodyPart> BodyParts { get; }
-        BodyPart getBodyPartById(int? Id);
+        BodyPart GetBodyPartById(int? Id);
         void SaveBodyPart(BodyPart bodyPart);
     }
 }

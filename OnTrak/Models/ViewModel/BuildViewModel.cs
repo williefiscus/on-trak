@@ -1,8 +1,6 @@
 ﻿using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities;
-using OnTrak.Models.Repository.BodyData;
-using OnTrak.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +14,7 @@ namespace OnTrak.Models.ViewModel
     {
         public static BodyAreaViewModel CreateBAreaViewModel(this IBodyAreaRepository bArea, IBodyPartRepository bPart, int? Id, DBGetter db)
         {
-            BodyArea bodyArea = bArea.getBodyAreaById(Id);
+            BodyArea bodyArea = bArea.GetBodyAreaById(Id);
             BodyAreaViewModel bAreaVM = new BodyAreaViewModel()
             {
                 Name = bodyArea.Name,
@@ -31,7 +29,7 @@ namespace OnTrak.Models.ViewModel
 
         public static MuscleViewModel CreateMuscleViewModel(this IMuscleRepository muscleRepo, IBodyPartRepository bPartRepo, int? Id)
         {
-            Muscle muscle = muscleRepo.getMusceById(Id);
+            Muscle muscle = muscleRepo.GetMusceById(Id);
             MuscleViewModel muscleVM = new MuscleViewModel()
             {
                 BodyPartId = muscle.BodyPartId,
@@ -132,7 +130,7 @@ namespace OnTrak.Models.ViewModel
                         Image = muscle.Image,
                         MuscleId = muscle.MuscleId,
                         Name = muscle.Name,
-                        BodyParts = db.bodyParts
+                        BodyParts = db.bodyParts.ToList()
                     });
                 }
                
@@ -168,7 +166,7 @@ namespace OnTrak.Models.ViewModel
 
         public static BodyPartsViewModel CreateBPartViewModel(this IBodyPartRepository bPart, IBodyAreaRepository bodyArea, int? Id, DBGetter db)
         {
-            BodyPart bodyPart = bPart.getBodyPartById(Id);
+            BodyPart bodyPart = bPart.GetBodyPartById(Id);
             BodyPartsViewModel bPartVM = new BodyPartsViewModel()
             {
                 Name = bodyPart.Name,

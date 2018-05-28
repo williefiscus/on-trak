@@ -11,8 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using OnTrak.Models;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
-using OnTrak.Models.Repository.BodyData;
-
 namespace OnTrak
 {
     public class Startup
@@ -30,6 +28,7 @@ namespace OnTrak
             services.AddTransient<IBodyAreaRepository, EFBodyAreaRepository>();
             services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
             services.AddTransient<IMuscleRepository, EFMuscleRepository>();
+            services.AddTransient<IExerciseRepository, EFExerciseRepository>();
 
             services.AddMvc();
         }

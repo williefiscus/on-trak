@@ -1,5 +1,4 @@
 ﻿@model IEnumerable<BodyAreaViewModel>
-@using OnTrak.Models.ViewModels
 @using OnTrak.Models.UIModel
 @using OnTrak.Models.ViewModel
 @using OnTrak.Models.Data.EFRepo
@@ -51,4 +50,7 @@
         </a>
         <a type="button" class="btn btn-dark " href="@Url.Action("Create", "Muscle")">
             Add A Muscle
+        </a>
+        <a type="button" class="btn btn-dark " href="@Url.Action("Create", "Exercise")">
+            Add An Exercise
         </a>

@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using OnTrak.Migrations;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
-using OnTrak.Models.Entities.Body;
+using OnTrak.Models.Entities.Activities;
 using OnTrak.Models.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,18 +12,20 @@ using System.Threading.Tasks;
 
 namespace OnTrak.Controllers
 {
-    public class MuscleController : Controller
+    public class ExerciseController : Controller
     {
 
         private IBodyAreaRepository bodyAreaRepository;
         private IBodyPartRepository bodyPartRepository;
         private IMuscleRepository muscleRepository;
+        private IExerciseRepository exerciseRepository;
         public DBGetter dbGetter = new DBGetter();
-        public MuscleController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
+        public ExerciseController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo, IExerciseRepository exerciseRepo)
         {
             bodyAreaRepository = bAreaRepo;
             bodyPartRepository = bPartRepo;
             muscleRepository = muscleRepo;
+            exerciseRepository = exerciseRepo;
             dbGetter.AssignData(muscleRepository.Muscles.ToList(), bodyAreaRepository.BodyAreas.ToList(), bodyPartRepository.BodyParts.ToList());
         }
 
@@ -32,39 +33,43 @@ namespace OnTrak.Controllers
 
         public ViewResult Create()
         {
-            MuscleViewModel muscleVM = new MuscleViewModel
+            ExerciseViewModel exerciseVM = new ExerciseViewModel
             {
-                BodyParts = bodyPartRepository.BodyParts.ToList()
+                BodyParts = bodyPartRepository.BodyParts.ToList(),
+                BodyAreas = bodyAreaRepository.BodyAreas.ToList(),
+                Muscles = muscleRepository.Muscles.ToList()
             };
-            return View(muscleVM);
+            return View(exerciseVM);
         }
 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(MuscleViewModel muscleVM, IFormFile file)
+        public async Task<IActionResult> Create(ExerciseViewModel exerciseVM, IFormFile file)
         {
             var filePath = Path.GetTempFileName();
-            Muscle muscle = new Muscle
+            Exercise exercise = new Exercise
             {
-               BodyPartId = muscleVM.BodyPartId,
-               Description = muscleVM.Description,
-               MuscleId = muscleVM.MuscleId,
-               Name = muscleVM.Name
+                BodyPartId = exerciseVM.BodyPartId,
+                Description = exerciseVM.Description,
+                MuscleId = exerciseVM.MuscleId,
+                Name = exerciseVM.Name,
+                BodyAreaId = exerciseVM.BodyAreaId,
+                ExerciseId = exerciseVM.ExerciseId,
             };
             if (file != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
-                    muscle.Image = memoryStream.ToArray();
+                    exercise.Image = memoryStream.ToArray();
                 }
             }
 
             if (ModelState.IsValid)
             {
-                muscleRepository.SaveMuscle(muscle);
-                TempData["Message"] = $"{muscle.Name} has been created";
+                exerciseRepository.SaveExercise(exercise);
+                TempData["Message"] = $"{exercise.Name} has been created";
                 return RedirectToAction("Index", "BodyArea", bodyAreaRepository.BodyAreas.ToList().CreateListBAreaVM(bodyPartRepository, bodyAreaRepository, dbGetter));
             }
             else
@@ -80,38 +85,40 @@ namespace OnTrak.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(MuscleViewModel muscleVM, IFormFile file)
+        public async Task<IActionResult> Edit(ExerciseViewModel exerciseVM, IFormFile file)
         {
             var filePath = Path.GetTempFileName();
-            Muscle muscle = new Muscle
+            Exercise exercise = new Exercise
             {
-                BodyPartId = muscleVM.BodyPartId,
-                Name = muscleVM.Name,
-                Description = muscleVM.Description,
-                MuscleId = muscleVM.MuscleId
+                BodyPartId = exerciseVM.BodyPartId,
+                Description = exerciseVM.Description,
+                MuscleId = exerciseVM.MuscleId,
+                Name = exerciseVM.Name,
+                BodyAreaId = exerciseVM.BodyAreaId,
+                ExerciseId = exerciseVM.ExerciseId,
             };
             if (file != null)
             {
                 using (var memoryStream = new MemoryStream())
                 {
                     await file.CopyToAsync(memoryStream);
-                    muscle.Image = memoryStream.ToArray();
+                    exercise.Image = memoryStream.ToArray();
                 }
             }
             else
             {
-                muscle.Image = muscleRepository.GetMusceById(muscle.MuscleId).Image;
+                exercise.Image = exerciseRepository.GetExerciseById(exercise.MuscleId).Image;
             }
 
 
             if (ModelState.IsValid)
             {
-                muscleRepository.SaveMuscle(muscle);
-                TempData["Message"] = $"{muscle.Name} has been saved";
+                exerciseRepository.SaveExercise(exercise);
+                TempData["Message"] = $"{exercise.Name} has been saved";
                 return RedirectToAction("Index", "BodyArea");
             }
             else
-                return View(muscleVM);
+                return View(exerciseVM);
         }
 
 
