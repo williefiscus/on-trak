@@ -20,5 +20,6 @@ namespace OnTrak.Models
         public DbSet<BodyPart> BodyParts { get; set; }
         public DbSet<Muscle> Muscles { get; set; }
         public DbSet <Exercise> Exercises { get; set; }
+        public DbSet<ExerciseMuscleRelationship> ExercisesToMuscles { get; set; }
     }
 }
