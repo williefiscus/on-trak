@@ -25,27 +25,21 @@ namespace OnTrak.Migrations
                     b.Property<int>("ExerciseId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<int>("BodyAreaId");
+
+                    b.Property<int>("BodyPartId");
+
                     b.Property<string>("Description");
 
                     b.Property<byte[]>("Image");
+
+                    b.Property<int>("MuscleId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("ExerciseId");
 
                     b.ToTable("Exercises");
-                });
-
-            modelBuilder.Entity("OnTrak.Models.Entities.Activities.ExerciseMuscleRelationship", b =>
-                {
-                    b.Property<int>("ExerciseId")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("MuscleIdS");
-
-                    b.HasKey("ExerciseId");
-
-                    b.ToTable("ExercisesToMuscles");
                 });
 
             modelBuilder.Entity("OnTrak.Models.Entities.Body.BodyArea", b =>
