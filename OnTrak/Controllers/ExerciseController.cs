@@ -29,9 +29,7 @@ namespace OnTrak.Controllers
             dbGetter.AssignData(muscleRepository.Muscles.ToList(), bodyAreaRepository.BodyAreas.ToList(), bodyPartRepository.BodyParts.ToList());
         }
 
-        public ViewResult Index() {
-            return View();
-        }
+
 
         public ViewResult Create()
         {
@@ -52,9 +50,11 @@ namespace OnTrak.Controllers
             var filePath = Path.GetTempFileName();
             Exercise exercise = new Exercise
             {
-               
+                BodyPartId = exerciseVM.BodyPartId,
                 Description = exerciseVM.Description,
+                MuscleId = exerciseVM.MuscleId,
                 Name = exerciseVM.Name,
+                BodyAreaId = exerciseVM.BodyAreaId,
                 ExerciseId = exerciseVM.ExerciseId,
             };
             if (file != null)
@@ -90,8 +90,11 @@ namespace OnTrak.Controllers
             var filePath = Path.GetTempFileName();
             Exercise exercise = new Exercise
             {
+                BodyPartId = exerciseVM.BodyPartId,
                 Description = exerciseVM.Description,
+                MuscleId = exerciseVM.MuscleId,
                 Name = exerciseVM.Name,
+                BodyAreaId = exerciseVM.BodyAreaId,
                 ExerciseId = exerciseVM.ExerciseId,
             };
             if (file != null)
@@ -104,7 +107,7 @@ namespace OnTrak.Controllers
             }
             else
             {
-                exercise.Image = exerciseRepository.GetExerciseById(exercise.ExerciseId).Image;
+                exercise.Image = exerciseRepository.GetExerciseById(exercise.MuscleId).Image;
             }
 
 
