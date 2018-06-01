@@ -14,6 +14,7 @@ using OnTrak.Models.Data;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
 using OnTrak.Models.Entities.User;
+using OnTrak.Models.Entities.User.Infastructure;
 
 namespace OnTrak
 {
@@ -34,7 +35,11 @@ namespace OnTrak
             services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
             services.AddTransient<IMuscleRepository, EFMuscleRepository>();
             services.AddTransient<IExerciseRepository, EFExerciseRepository>();
+
+            services.AddTransient <IPasswordValidator<AppUser>, CustomPasswordValidator>();
             services.AddIdentity<AppUser, IdentityRole>(opts => {
+                opts.User.RequireUniqueEmail = true;
+               // opts.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyz1234567890";
                 opts.Password.RequiredLength = 6;
                 opts.Password.RequireNonAlphanumeric = true;
                 opts.Password.RequireLowercase = true;
