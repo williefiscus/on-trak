@@ -5,12 +5,16 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OnTrak.Models;
+using OnTrak.Models.Data;
 using OnTrak.Models.Data.EFRepo;
 using OnTrak.Models.Data.Repository;
+using OnTrak.Models.Entities.User;
+
 namespace OnTrak
 {
     public class Startup
@@ -25,11 +29,18 @@ namespace OnTrak
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
             services.AddTransient<IBodyAreaRepository, EFBodyAreaRepository>();
             services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
             services.AddTransient<IMuscleRepository, EFMuscleRepository>();
             services.AddTransient<IExerciseRepository, EFExerciseRepository>();
-
+            services.AddIdentity<AppUser, IdentityRole>(opts => {
+                opts.Password.RequiredLength = 6;
+                opts.Password.RequireNonAlphanumeric = true;
+                opts.Password.RequireLowercase = true;
+                opts.Password.RequireUppercase = true;
+                opts.Password.RequireDigit = true;
+            }).AddEntityFrameworkStores<AppIdentityDbContext>().AddDefaultTokenProviders();
             services.AddMvc();
         }
 
@@ -39,6 +50,7 @@ namespace OnTrak
             app.UseDeveloperExceptionPage();
             app.UseStatusCodePages();
             app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

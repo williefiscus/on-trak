@@ -35,8 +35,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("About", "Home")">About Us<span class="sr-only">(current)</span></a>
                     </li>
+
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Index", "BodyArea")">Body Areas<span class="sr-only">(current)</span></a>
+                        <div class="dropdown">
+                            <a href="#" data-toggle="dropdown" class="nav-link, navbar-dark dropdown-toggle">Admin<b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="" href="@Url.Action("Index", "Admin")">Users</a></li>
+                                <li><a class="" href="@Url.Action("Index", "BodyArea")">Body Areas</a></li>
+                                <li><a class="" href="@Url.Action("Index", "Exercise")">Exercise</a></li>
+                            </ul>
+                        </div>
+                        
                     </li>
                     @*<li class="nav-item">
                             <a class="nav-link" href="#">Link</a>

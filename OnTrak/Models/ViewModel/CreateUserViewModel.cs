@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace OnTrak.Models.Entities.Activities
+namespace OnTrak.Models.ViewModel
 {
-    public class Exercise
+    public class CreateUserViewModel
     {
         [Required]
-        public int ExerciseId { get; set; }
         public string Name { get; set; }
-        public string Description { get; set; }
-        public Byte[] Image { get; set; }
+        [Required]
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

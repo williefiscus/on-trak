@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace OnTrak.Models.Entities.Activities
 {
-    public class Exercise
+    public class ExerciseMuscleRelationship
     {
-        [Required]
+        [Key]
         public int ExerciseId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public Byte[] Image { get; set; }
+        public int MuscleIdS { get; set; }
     }
 }

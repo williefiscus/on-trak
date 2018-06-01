@@ -31,9 +31,6 @@ namespace OnTrak.Models.Data.EFRepo
                     dbEntry.ExerciseId = exercise.ExerciseId;
                     dbEntry.Name = exercise.Name;
                     dbEntry.Description = exercise.Description;
-                    dbEntry.BodyAreaId = exercise.BodyAreaId;
-                    dbEntry.BodyPartId = exercise.BodyPartId;
-                    dbEntry.MuscleId = exercise.MuscleId;
                     dbEntry.Image = exercise.Image;
                 }
 
