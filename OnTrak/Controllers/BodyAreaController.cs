@@ -18,7 +18,7 @@ namespace OnTrak.Controllers
         private IBodyAreaRepository bodyAreaRepository;
         private IBodyPartRepository bodyPartRepository;
         private IMuscleRepository muscleRepository;
-
+         
         public DBGetter dbGetter = new DBGetter();
         public BodyAreaController(IBodyAreaRepository bAreaRepo, IBodyPartRepository bPartRepo, IMuscleRepository muscleRepo)
         {
