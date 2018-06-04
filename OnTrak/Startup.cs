@@ -29,8 +29,8 @@ namespace OnTrak
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:DefaultConnection"]));
-            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:DefaultConnection"]));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
+            services.AddDbContext<AppIdentityDbContext>(options => options.UseSqlServer(Configuration["Data:OnTrakBodyDb:ConnectionString"]));
             services.AddTransient<IBodyAreaRepository, EFBodyAreaRepository>();
             services.AddTransient<IBodyPartRepository, EFBodyPartRepository>();
             services.AddTransient<IMuscleRepository, EFMuscleRepository>();
