@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnTrak.Models.Entities.User;
@@ -13,6 +14,7 @@ namespace OnTrak.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
 
@@ -28,6 +30,13 @@ namespace OnTrak.Controllers
             return View();
         }
 
+
+        public IActionResult Logout(string returnUrl)
+        {
+            ViewBag.returnUrl = returnUrl;
+            signInManager.SignOutAsync();
+            return View();
+        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
