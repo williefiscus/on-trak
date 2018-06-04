@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-
+using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using OnTrak.Models.Entities.User;
@@ -18,7 +18,8 @@ namespace OnTrak.Controllers
         private UserManager<AppUser> userManager;
         private SignInManager<AppUser> signInManager;
 
-        public AccountController(UserManager<AppUser> usrMgr, SignInManager<AppUser> signinMgr) {
+        public AccountController(UserManager<AppUser> usrMgr, SignInManager<AppUser> signinMgr)
+        {
             userManager = usrMgr;
             signInManager = signinMgr;
         }
@@ -31,11 +32,11 @@ namespace OnTrak.Controllers
         }
 
 
-        public IActionResult Logout(string returnUrl)
+        public async Task<IActionResult> Logout(string returnUrl)
         {
-            ViewBag.returnUrl = returnUrl;
-            signInManager.SignOutAsync();
-            return View();
+            
+            await signInManager.SignOutAsync();
+            return RedirectToAction("Index","Home");
         }
         [HttpPost]
         [AllowAnonymous]
